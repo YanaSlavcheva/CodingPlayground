@@ -52,6 +52,9 @@
     <Compile Include="Strategy\MergeSort.cs" />
     <Compile Include="Strategy\ObjectTypeEnum.cs" />
     <Compile Include="Strategy\QuickSort.cs" />
+    <Compile Include="Template\InterviewProcess.cs" />
+    <Compile Include="Template\InterviewProcessForDeveloper.cs" />
+    <Compile Include="Template\InterviewProcessForQa.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

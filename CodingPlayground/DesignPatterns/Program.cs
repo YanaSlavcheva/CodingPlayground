@@ -3,24 +3,25 @@
     using System.Collections.Generic;
 
     using DesignPatterns.Strategy;
+    using DesignPatterns.Template;
 
     public class Program
     {
         static void Main(string[] args)
         {
-            // STRATEGY
-            var residents = new List<string> { "Gosho", "Pesho", "Ivan" };
-            var residentsSortingStrategy = GetSortingStrategy(ObjectTypeEnum.Resident);
-            residentsSortingStrategy.Sort<string>(residents);
+            // Design patterns
+            // SINGLETON Creational pattern
+            TestSingleton();
 
-            var ticketNumbers = new List<int> { 123, 234, 12 };
-            var ticketNumbersSortingStrategy = GetSortingStrategy(ObjectTypeEnum.TicketNumber);
-            ticketNumbersSortingStrategy.Sort<int>(ticketNumbers);
+            // STRATEGY Behavioral pattern
+            TestStrategy();
 
-            var passengers = new List<string> { "Mimi", "Eli", "Vladko" };
-            var passengersSortingStrategy = GetSortingStrategy(ObjectTypeEnum.Passenger);
-            passengersSortingStrategy.Sort<string>(passengers);
+            // TEMPLATE Behavioral pattern
+            TestTemplate();
+        }
 
+        private static void TestSingleton()
+        {
             // SINGLETON
             // testing SingletonSimple
             var instanceOne = SingletonSimple.InstanceProperty;
@@ -45,6 +46,32 @@
 
             var instanceThreadSafeTwo = SingletonThreadSafe.InstanceProperty;
             System.Console.WriteLine(instanceThreadSafeTwo.TestProperty);
+        }
+
+        private static void TestStrategy()
+        {
+            // STRATEGY
+            var residents = new List<string> { "Gosho", "Pesho", "Ivan" };
+            var residentsSortingStrategy = GetSortingStrategy(ObjectTypeEnum.Resident);
+            residentsSortingStrategy.Sort<string>(residents);
+
+            var ticketNumbers = new List<int> { 123, 234, 12 };
+            var ticketNumbersSortingStrategy = GetSortingStrategy(ObjectTypeEnum.TicketNumber);
+            ticketNumbersSortingStrategy.Sort<int>(ticketNumbers);
+
+            var passengers = new List<string> { "Mimi", "Eli", "Vladko" };
+            var passengersSortingStrategy = GetSortingStrategy(ObjectTypeEnum.Passenger);
+            passengersSortingStrategy.Sort<string>(passengers);
+        }
+
+        private static void TestTemplate()
+        {
+            // TEMPLATE
+            var interviewForDeveloper = new InterviewProcessForDeveloper();
+            interviewForDeveloper.InitiateInterviewProcess();
+
+            var interviewForQa = new InterviewProcessForQa();
+            interviewForQa.InitiateInterviewProcess();
         }
 
         private static ISortingStrategy GetSortingStrategy(ObjectTypeEnum objectsType)
