@@ -4,6 +4,7 @@
 
     using DesignPatterns.Strategy;
     using DesignPatterns.Template;
+    using DesignPatterns.InversionOfControl;
 
     public class Program
     {
@@ -18,6 +19,9 @@
 
             // TEMPLATE Behavioral pattern
             TestTemplate();
+
+            // Inversion of Control
+            TestInversionOfControl();
         }
 
         private static void TestSingleton()
@@ -72,6 +76,14 @@
 
             var interviewForQa = new InterviewProcessForQa();
             interviewForQa.InitiateInterviewProcess();
+        }
+
+        private static void TestInversionOfControl()
+        {
+            IoC.Register<ILogger, Logger>();
+            IoC.Register<ConsoleLogger, ConsoleLogger>();
+            var objConsoleLogger = IoC.Resolve<ConsoleLogger>();
+            objConsoleLogger.LogMessage();
         }
 
         private static ISortingStrategy GetSortingStrategy(ObjectTypeEnum objectsType)

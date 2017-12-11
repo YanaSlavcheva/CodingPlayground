@@ -42,6 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InversionOfControl\ILogger.cs" />
+    <Compile Include="InversionOfControl\Logger.cs" />
+    <Compile Include="InversionOfControl\IoC.cs" />
+    <Compile Include="InversionOfControl\ConsoleLogger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Singleton\SingletonSimple.cs" />
