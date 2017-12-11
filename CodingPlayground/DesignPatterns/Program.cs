@@ -4,12 +4,21 @@
     {
         static void Main(string[] args)
         {
-            var instanceOne = SimpleSingleton.InstanceProperty;
+            // testing SingletonSimple
+            var instanceOne = SingletonSimple.InstanceProperty;
             instanceOne.TestProperty = 5;
             System.Console.WriteLine(instanceOne.TestProperty);
 
-            var instanceTwo = SimpleSingleton.InstanceProperty;
+            var instanceTwo = SingletonSimple.InstanceProperty;
             System.Console.WriteLine(instanceTwo.TestProperty);
+
+            // testing SingletonStaticInitialization
+            var instanceStaticOne = SingletonStaticInitialization.InstanceProperty;
+            instanceStaticOne.TestProperty = 10;
+            System.Console.WriteLine(instanceStaticOne.TestProperty);
+
+            var instanceStaticTwo = SingletonStaticInitialization.InstanceProperty;
+            System.Console.WriteLine(instanceStaticTwo.TestProperty);
         }
     }
 }

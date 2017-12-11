@@ -1,23 +1,23 @@
 ﻿namespace DesignPatterns
 {
-    public class SimpleSingleton
+    public class SingletonSimple
     {
-        private static SimpleSingleton instanceField;
+        private static SingletonSimple instanceField;
 
         public int testProperty;
 
-        private SimpleSingleton()
+        private SingletonSimple()
         {
             this.TestProperty = testProperty;
         }
 
-        public static SimpleSingleton InstanceProperty
+        public static SingletonSimple InstanceProperty
         {
             get
             {
                 if (instanceField == null)
                 {
-                    instanceField = new SimpleSingleton();
+                    instanceField = new SingletonSimple();
                 }
 
                 return instanceField;
