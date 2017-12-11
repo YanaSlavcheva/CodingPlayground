@@ -19,6 +19,14 @@
 
             var instanceStaticTwo = SingletonStaticInitialization.InstanceProperty;
             System.Console.WriteLine(instanceStaticTwo.TestProperty);
+
+            // testing SingletonThreadSafe
+            var instanceThreadSafeOne = SingletonThreadSafe.InstanceProperty;
+            instanceThreadSafeOne.TestProperty = 10;
+            System.Console.WriteLine(instanceThreadSafeOne.TestProperty);
+
+            var instanceThreadSafeTwo = SingletonThreadSafe.InstanceProperty;
+            System.Console.WriteLine(instanceThreadSafeTwo.TestProperty);
         }
     }
 }

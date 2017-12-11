@@ -4,11 +4,11 @@
     {
         private static SingletonSimple instanceField;
 
-        public int testProperty;
+        public int testField;
 
         private SingletonSimple()
         {
-            this.TestProperty = testProperty;
+            this.TestProperty = testField;
         }
 
         public static SingletonSimple InstanceProperty

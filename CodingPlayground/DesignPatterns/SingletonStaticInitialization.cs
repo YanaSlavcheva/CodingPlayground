@@ -4,7 +4,7 @@
     {
         private readonly static SingletonStaticInitialization instanceField = new SingletonStaticInitialization();
 
-        private int testField;
+        public int testField;
 
         private SingletonStaticInitialization()
         {
