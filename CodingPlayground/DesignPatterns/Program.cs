@@ -6,11 +6,15 @@
     using DesignPatterns.Template;
     using DesignPatterns.InversionOfControl;
     using System;
+    using System.Linq;
 
     public class Program
     {
         static void Main(string[] args)
         {
+            // Delegates
+            TestDelegates();
+
             // Reflection
             TestReflection();
 
@@ -26,6 +30,35 @@
             // Design patterns
             // SINGLETON Creational pattern
             TestSingleton();
+        }
+
+
+        public delegate void Del(string message);
+        private static void TestDelegates()
+        {
+            Del handler = DelegateMethod;
+            Console.WriteLine($"The type of handler is {handler.GetType()}");
+
+            handler("Text to pass to DelegateMethod through the delegate Del");
+
+            MethodForSumOfNumbersWithCallback(1, 2, handler);
+
+            var collection = new List<int> { 1, 2, 3, 4, 5 };
+
+            // function (Linq) as parameter for the function Where of the Assembly System => so it is Delegate
+            var evenFromCollection = collection.Where(x => x % 2 == 0).Select(x => x).ToList();
+            Console.WriteLine(string.Join(", ", evenFromCollection));
+            Console.Read();
+        }
+
+        public static void DelegateMethod(string message)
+        {
+            Console.WriteLine(message);
+        }
+
+        public static void MethodForSumOfNumbersWithCallback(int parameterOne, int parameterTwo, Del callback)
+        {
+            callback($"The sum is {(parameterOne + parameterTwo).ToString()}");
         }
 
         private static void TestReflection()
