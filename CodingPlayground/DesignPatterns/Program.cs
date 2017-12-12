@@ -5,23 +5,94 @@
     using DesignPatterns.Strategy;
     using DesignPatterns.Template;
     using DesignPatterns.InversionOfControl;
+    using System;
 
     public class Program
     {
         static void Main(string[] args)
         {
-            // Design patterns
-            // SINGLETON Creational pattern
-            TestSingleton();
+            // Reflection
+            TestReflection();
 
-            // STRATEGY Behavioral pattern
-            TestStrategy();
+            // Inversion of Control
+            TestInversionOfControl();
 
             // TEMPLATE Behavioral pattern
             TestTemplate();
 
-            // Inversion of Control
-            TestInversionOfControl();
+            // STRATEGY Behavioral pattern
+            TestStrategy();
+
+            // Design patterns
+            // SINGLETON Creational pattern
+            TestSingleton();
+        }
+
+        private static void TestReflection()
+        {
+            var dateTimeWithReflection = (DateTime)Activator.CreateInstance(typeof(DateTime));
+            Console.WriteLine($"Type of dateTimeWithReflection: {dateTimeWithReflection.GetType()}");
+
+            var dateTimeTheCommonWay = new DateTime();
+            Console.WriteLine($"Type of dateTimeTheCommonWay: {dateTimeTheCommonWay.GetType()}");
+            Console.ReadLine();
+        }
+
+        private static void TestInversionOfControl()
+        {
+            IoC.Register<ILogger, Logger>();
+            IoC.Register<ConsoleLogger, ConsoleLogger>();
+            var objConsoleLogger = IoC.Resolve<ConsoleLogger>();
+            objConsoleLogger.LogMessage();
+        }
+
+        private static void TestTemplate()
+        {
+            // TEMPLATE
+            var interviewForDeveloper = new InterviewProcessForDeveloper();
+            interviewForDeveloper.InitiateInterviewProcess();
+
+            var interviewForQa = new InterviewProcessForQa();
+            interviewForQa.InitiateInterviewProcess();
+        }
+
+        private static void TestStrategy()
+        {
+            // STRATEGY
+            var residents = new List<string> { "Gosho", "Pesho", "Ivan" };
+            var residentsSortingStrategy = GetSortingStrategy(ObjectTypeEnum.Resident);
+            residentsSortingStrategy.Sort<string>(residents);
+
+            var ticketNumbers = new List<int> { 123, 234, 12 };
+            var ticketNumbersSortingStrategy = GetSortingStrategy(ObjectTypeEnum.TicketNumber);
+            ticketNumbersSortingStrategy.Sort<int>(ticketNumbers);
+
+            var passengers = new List<string> { "Mimi", "Eli", "Vladko" };
+            var passengersSortingStrategy = GetSortingStrategy(ObjectTypeEnum.Passenger);
+            passengersSortingStrategy.Sort<string>(passengers);
+        }
+
+        private static ISortingStrategy GetSortingStrategy(ObjectTypeEnum objectsType)
+        {
+            ISortingStrategy sortingStrategy = null;
+
+            switch (objectsType)
+            {
+                case ObjectTypeEnum.Resident:
+                    sortingStrategy = new QuickSort();
+                    break;
+                case ObjectTypeEnum.TicketNumber:
+                    sortingStrategy = new MergeSort();
+                    break;
+                case ObjectTypeEnum.Passenger:
+                    sortingStrategy = new HeapSort();
+                    break;
+                default:
+                    break;
+            }
+
+            System.Console.WriteLine($"Type of elements in collection: {objectsType} -> Chosen Strategy: {sortingStrategy}");
+            return sortingStrategy;
         }
 
         private static void TestSingleton()
@@ -50,63 +121,6 @@
 
             var instanceThreadSafeTwo = SingletonThreadSafe.InstanceProperty;
             System.Console.WriteLine(instanceThreadSafeTwo.TestProperty);
-        }
-
-        private static void TestStrategy()
-        {
-            // STRATEGY
-            var residents = new List<string> { "Gosho", "Pesho", "Ivan" };
-            var residentsSortingStrategy = GetSortingStrategy(ObjectTypeEnum.Resident);
-            residentsSortingStrategy.Sort<string>(residents);
-
-            var ticketNumbers = new List<int> { 123, 234, 12 };
-            var ticketNumbersSortingStrategy = GetSortingStrategy(ObjectTypeEnum.TicketNumber);
-            ticketNumbersSortingStrategy.Sort<int>(ticketNumbers);
-
-            var passengers = new List<string> { "Mimi", "Eli", "Vladko" };
-            var passengersSortingStrategy = GetSortingStrategy(ObjectTypeEnum.Passenger);
-            passengersSortingStrategy.Sort<string>(passengers);
-        }
-
-        private static void TestTemplate()
-        {
-            // TEMPLATE
-            var interviewForDeveloper = new InterviewProcessForDeveloper();
-            interviewForDeveloper.InitiateInterviewProcess();
-
-            var interviewForQa = new InterviewProcessForQa();
-            interviewForQa.InitiateInterviewProcess();
-        }
-
-        private static void TestInversionOfControl()
-        {
-            IoC.Register<ILogger, Logger>();
-            IoC.Register<ConsoleLogger, ConsoleLogger>();
-            var objConsoleLogger = IoC.Resolve<ConsoleLogger>();
-            objConsoleLogger.LogMessage();
-        }
-
-        private static ISortingStrategy GetSortingStrategy(ObjectTypeEnum objectsType)
-        {
-            ISortingStrategy sortingStrategy = null;
-
-            switch (objectsType)
-            {
-                case ObjectTypeEnum.Resident:
-                    sortingStrategy = new QuickSort();
-                    break;
-                case ObjectTypeEnum.TicketNumber:
-                    sortingStrategy = new MergeSort();
-                    break;
-                case ObjectTypeEnum.Passenger:
-                    sortingStrategy = new HeapSort();
-                    break;
-                default:
-                    break;
-            }
-
-            System.Console.WriteLine($"Type of elements in collection: {objectsType} -> Chosen Strategy: {sortingStrategy}");
-            return sortingStrategy;
         }
     }
 }
